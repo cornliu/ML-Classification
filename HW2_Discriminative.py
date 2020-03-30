@@ -93,11 +93,11 @@ def _cross_entropy_loss(y_pred, Y_label):
     return cross_entropy
 
 def _gradient(X, Y_label, w, b):
-    lamb = 0.8
+    #lamb = 0.01                            #改回來！！！
     # This function computes the gradient of cross entropy loss with respect to weight w and bias b.
     y_pred = _f(X, w, b)
     pred_error = Y_label - y_pred
-    w_grad = -np.sum(pred_error * X.T, 1)  - lamb*w
+    w_grad = -np.sum(pred_error * X.T, 1) # - lamb*w                     #改回來！！！
     b_grad = -np.sum(pred_error)
     return w_grad, b_grad
 
@@ -120,7 +120,7 @@ X_test = np.delete(X_test, a, axis = 1)
 
 
 # Split data into training set and development set
-dev_ratio = 0.8
+dev_ratio = 0.1
 X_train, Y_train, X_dev, Y_dev = _train_dev_split(X_train, Y_train, dev_ratio = dev_ratio)
 
 train_size = X_train.shape[0]
@@ -138,7 +138,7 @@ w = np.zeros((data_dim,))
 b = np.zeros((1,))
 
 # Some parameters for training    
-max_iter = 30
+max_iter = 100                                         #改回來！！！100
 batch_size = 50
 learning_rate = 0.05
 
@@ -188,21 +188,21 @@ print('Development loss: {}'.format(dev_loss[-1]))
 print('Training accuracy: {}'.format(train_acc[-1]))
 print('Development accuracy: {}'.format(dev_acc[-1]))
 
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
-# Loss curve
-plt.plot(train_loss)
-plt.plot(dev_loss)
-plt.title('Loss')
-plt.legend(['train', 'dev'])
-plt.savefig('loss.png')
-
-# Accuracy curve
-plt.plot(train_acc)
-plt.plot(dev_acc)
-plt.title('Accuracy')
-plt.legend(['train', 'dev'])
-plt.savefig('acc.png')
+# # Loss curve
+# plt.plot(train_loss)
+# plt.plot(dev_loss)
+# plt.title('Loss')
+# plt.legend(['train', 'dev'])
+# plt.savefig('loss.png')
+# plt.show()
+# # Accuracy curve
+# plt.plot(train_acc)
+# plt.plot(dev_acc)
+# plt.title('Accuracy')
+# plt.legend(['train', 'dev'])
+# plt.savefig('acc.png')
 
 
 
